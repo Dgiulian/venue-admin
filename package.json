@@ -6,7 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate": "drizzle-kit generate:sqlite --out ./drizzle/migrations --breakpoints --schema=./drizzle/schema.ts",
+    "migrate": "tsx drizzle/migrate",
+    "studio": "drizzle-kit studio --config src/drizzle.config.ts --port 3333 --verbose",
+    "db:seed": "tsx src/drizzle/seed.ts",
+    "db:local": "turso dev --db-file venue-admin.db",
+    "db:shell": "turso db shell http://127.0.0.1:8080"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
@@ -32,6 +38,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "dotenv": "^16.3.1",
     "drizzle-kit": "^0.20.4",
     "eslint": "^8",
     "eslint-config-next": "14.0.3",
@@ -39,6 +46,7 @@
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
     "tailwindcss": "^3.3.0",
+    "tsx": "^4.4.0",
     "typescript": "^5"
   }
 }

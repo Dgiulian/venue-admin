@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function Viewer() {
+export default function ViewerPage() {
   return (
     <main className="place-items: center flex min-h-screen flex-col items-center justify-center p-24">
       <div className="z-10 h-full  w-full max-w-5xl flex-col place-items-center items-center justify-between space-y-28 font-mono text-sm lg:flex">
