@@ -17,24 +17,23 @@ export const GET = async (
     .where(eq(users.email, email))
     .all();
 
-  // const count = !data.length ? 0 : data;
-
-  // console.log(data);
-
   return NextResponse.json({ users: data });
 };
 
-export const POST = async (request: NextRequest) => {
-  // const { email } = request.body;
-
-  const email = "kspaducciqv@tripadvisor.com";
+export const POST = async (
+  request: NextRequest,
+  { params }: { params: { email: string } },
+) => {
+  const email = z.string().parse(params.email);
   const data = await db
     .select()
     .from(users)
     .where(eq(users.email, email))
     .get();
 
-  console.log(data);
+  if (!data) {
+    return NextResponse.json({ user: null });
+  }
 
   const updatedUser = await db
     .update(users)

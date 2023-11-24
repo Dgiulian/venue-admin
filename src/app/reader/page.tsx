@@ -77,12 +77,6 @@ export default function RegisterPage() {
         >
           Volver
         </Button>
-        {/* <Link
-          href="/reader"
-          className={cn(buttonVariants({ variant: "outline" }), "mt-10")}
-        >
-          Volver
-        </Link> */}
       </div>
     );
   }

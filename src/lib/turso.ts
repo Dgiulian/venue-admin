@@ -1,13 +1,13 @@
 import { drizzle } from "drizzle-orm/libsql";
 import { createClient } from "@libsql/client/http";
 import * as schema from "@/drizzle/schema";
-// import type { AppLoadContext } from "@remix-run/cloudflare";
+import { users } from "@/drizzle/schema";
+import { desc } from "drizzle-orm";
 
 interface Env {
   TURSO_DB_AUTH_TOKEN?: string;
   TURSO_DB_URL?: string;
 }
-console.log();
 const url = (process.env as unknown as Env).TURSO_DB_URL?.trim();
 if (url === undefined) {
   throw new Error("TURSO_DB_URL is not defined");
@@ -23,3 +23,12 @@ const connection = createClient({
 });
 
 export const db = drizzle(connection, { schema });
+
+export async function getUsers() {
+  const data = await db
+    .select()
+    .from(users)
+    .orderBy(desc(users.register))
+    .all();
+  return data;
+}

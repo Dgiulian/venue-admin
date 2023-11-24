@@ -4,7 +4,7 @@ export interface User {
   lastName: string;
   email: string;
   mesa: number;
-  register: number;
-  createdAt: number;
-  updatedAt: number;
+  register: number | null;
+  createdAt: number | null;
+  updatedAt: number | null;
 }

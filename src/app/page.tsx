@@ -23,7 +23,7 @@ export default function Home() {
             href="/viewer"
             className={buttonVariants({ variant: "outline" })}
           >
-            Mostrar ubicaci&uacute;n
+            Mostrar ubicaci&oacute;n
           </Link>
           <Link
             href="/sorteo"

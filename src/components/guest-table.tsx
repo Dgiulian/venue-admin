@@ -24,16 +24,16 @@ export function GuestTable({ users }: GuestTableProps) {
           <TableHead className="w-auto">Nombre</TableHead>
           <TableHead>Mesa</TableHead>
           <TableHead className="hidden md:block">Email</TableHead>
-          <TableHead>Registrado</TableHead>
+          <TableHead className="w-6">Registrado</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {users.map((user) => (
           <TableRow key={user.id}>
-            <TableCell className="font-medium">{`${user.firstName} ${user.lastName}`}</TableCell>
+            <TableCell className="w-auto font-medium">{`${user.firstName} ${user.lastName}`}</TableCell>
             <TableCell>{user.mesa}</TableCell>
             <TableCell className="hidden md:block">{user.email}</TableCell>
-            <TableCell className="w-10">
+            <TableCell className="text-center">
               {user.register ? (
                 <Check className="text-green-500" />
               ) : (
