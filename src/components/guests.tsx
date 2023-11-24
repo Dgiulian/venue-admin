@@ -20,9 +20,10 @@ export function Guests({ users }: GuestsProps) {
       .filter(
         (user) =>
           filter === "" ||
-          user.firstName.includes(filter) ||
-          user.lastName.includes(filter) ||
-          user.email.includes(filter),
+          user.fullName?.includes(filter) ||
+          user.firstName?.includes(filter) ||
+          user.lastName?.includes(filter) ||
+          user.email?.includes(filter),
       )
       .filter((user) => register === "all" || user.register === +register);
   }, [users, filter, register]);

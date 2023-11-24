@@ -46,6 +46,7 @@ function UsersRaffle({ items, debug = false }: Props<User>) {
       // });
     }, 200);
     return () => window.clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [start, items]);
 
   const startRaffle = () => {
