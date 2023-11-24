@@ -9,7 +9,7 @@ type QRPageProps = {
 };
 
 function QRPage({ searchParams }: QRPageProps) {
-  const { email } = searchParams;
+  const { value } = searchParams;
 
   const onImageCownload = () => {
     const svg = document.getElementById("QRCode");
@@ -43,15 +43,15 @@ function QRPage({ searchParams }: QRPageProps) {
 
   return (
     <div className="h flex h-screen items-center justify-center">
-      {email ? (
+      {value ? (
         <div className="flex flex-col gap-4">
           <div className="bg-white p-4">
-            <QRCode id="QRCode" value={email} />
+            <QRCode id="QRCode" value={value} />
           </div>
           <Button onClick={() => onImageCownload()}>Descargar QR</Button>
         </div>
       ) : (
-        <p>Email no encontrado</p>
+        <p>QR no encontrado</p>
       )}
     </div>
   );

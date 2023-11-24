@@ -1,8 +1,9 @@
 CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY,
-    firstName TEXT NOT NULL,
-    lastName TEXT NOT NULL,
-    email TEXT UNIQUE NOT NULL,
+    id TEXT PRIMARY KEY,
+    firstName TEXT NULL,
+    lastName TEXT NULL,
+    fullName TEXT NOT NULL,
+    email TEXT NULL,
     mesa INTEGER DEFAULT 0,
     register INTEGER DEFAULT 0,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,

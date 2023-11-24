@@ -13,10 +13,12 @@ function WelcomeMessage({ nombre, mesa }: Props) {
         <p className="text-3xl font-bold uppercase md:text-6xl">{nombre}</p>
       </div>
 
-      <div className="flex flex-col items-center justify-center space-y-9">
-        <p className="text-4xl font-light uppercase md:text-7xl">Mesa</p>
-        <p className="text-3xl font-black uppercase md:text-6xl">{mesa}</p>
-      </div>
+      {mesa && (
+        <div className="flex flex-col items-center justify-center space-y-9">
+          <p className="text-4xl font-light uppercase md:text-7xl">Mesa</p>
+          <p className="text-3xl font-black uppercase md:text-6xl">{mesa}</p>
+        </div>
+      )}
     </div>
   );
 }

@@ -14,7 +14,7 @@ import { QRReaderDialog } from "./qr-reader-dialog";
 import QRDialog from "./qr-dialog";
 import { useState } from "react";
 import { Button } from "./ui/button";
-import { formatTimestamp } from "@/lib/utils";
+import { formatTimestamp, getUserDisplayName } from "@/lib/utils";
 
 type GuestTableProps = {
   users: User[];
@@ -38,7 +38,9 @@ export function GuestTable({ users }: GuestTableProps) {
       <TableBody>
         {users.map((user) => (
           <TableRow key={user.id}>
-            <TableCell className="w-auto font-medium">{`${user.firstName} ${user.lastName}`}</TableCell>
+            <TableCell className="w-auto font-medium">
+              {getUserDisplayName(user)}
+            </TableCell>
             <TableCell>{user.mesa}</TableCell>
             <TableCell className="hidden md:table-cell">
               <a

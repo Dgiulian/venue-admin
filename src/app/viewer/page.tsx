@@ -2,6 +2,7 @@
 
 import WelcomeMessage from "@/components/WelcomeMessage";
 import { User } from "@/lib/types";
+import { getUserDisplayName } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
 export default function ViewerPage({
@@ -67,8 +68,10 @@ export default function ViewerPage({
     <main className="flex min-h-screen flex-col items-center justify-center p-4 md:p-24">
       {user ? (
         <WelcomeMessage
-          nombre={`${user?.firstName} ${user?.lastName}`}
-          mesa={`${user?.mesa}`}
+          nombre={
+            getUserDisplayName(user)
+          }
+          mesa={user.mesa ? user.mesa.toString() : ""}
         />
       ) : (
         <div>

@@ -19,11 +19,10 @@ import { User } from "@/lib/types";
 import Link from "next/link";
 import { useState } from "react";
 import { QrCode } from "lucide-react";
+import { getUserDisplayName } from "@/lib/utils";
 
 const FormSchema = z.object({
-  email: z.string().trim().email({
-    message: "Username must be at least 2 characters.",
-  }),
+  nombre: z.string().trim(),
 });
 
 export default function RegisterPage() {
@@ -32,14 +31,17 @@ export default function RegisterPage() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: "",
+      nombre: "",
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    const email = form.getValues("email");
-    if (email) {
-      fetch(`register/${email}`, { method: "POST" })
+    const nombre = form.getValues("nombre");
+    if (nombre) {
+      fetch(`register`, {
+        method: "POST",
+        body: JSON.stringify({ nombre: nombre }),
+      })
         .then((res) => res.json())
         .then((data) => {
           setUser(data.user);
@@ -47,29 +49,31 @@ export default function RegisterPage() {
         });
     }
   }
-  const onClick = () => {
-    const email = form.getValues("email");
-    if (email) {
-      fetch(`register/${email}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setUser(data.user);
-        });
-    }
-  };
+  // const onClick = () => {
+  //   const nombre = form.getValues("nombre");
+  //   if (nombre) {
+  //     fetch(`register/${nombre}`)
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setUser(data.user);
+  //       });
+  //   }
+  // };
   if (user) {
     return (
       <div className="flex h-screen flex-col items-center justify-center ">
         <WelcomeMessage
-          nombre={`${user.firstName} ${user.lastName}`}
-          mesa={user.mesa.toString()}
+          nombre={
+            getUserDisplayName(user)
+          }
+          mesa={user.mesa ? user.mesa.toString() : ""}
         />
         <Button
           variant="outline"
           className="mt-10"
           onClick={() => {
             setUser(null);
-            form.setValue("email", "");
+            form.setValue("nombre", "");
           }}
         >
           Volver
@@ -90,19 +94,17 @@ export default function RegisterPage() {
             <div className="flex w-full flex-row items-end gap-2 ">
               <FormField
                 control={form.control}
-                name="email"
+                name="nombre"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>Nombre</FormLabel>
                     <FormControl>
                       <Input
                         className="flex-1"
-                        placeholder="email"
+                        placeholder="Nombre"
                         {...field}
                       />
                     </FormControl>
-                    {/* <FormDescription>Email del invitado</FormDescription> */}
-                    {/* <FormMessage /> */}
                   </FormItem>
                 )}
               />
@@ -110,9 +112,7 @@ export default function RegisterPage() {
                 <QrCode />
               </Button>
             </div>
-            <Button className="" onClick={onClick}>
-              Ingresar
-            </Button>
+            <Button className="">Ingresar</Button>
           </div>
           {/* <Button type="submit">Registrar</Button> */}
         </form>
@@ -124,7 +124,7 @@ export default function RegisterPage() {
         open={open}
         setOpen={() => setOpen(!open)}
         onRead={(data) => {
-          form.setValue("email", data);
+          form.setValue("nombre", data);
           setOpen(false);
         }}
       />

@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { User } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -36,5 +37,11 @@ export function formatTimestamp(timestamp: number | null): string {
   const minutes = date.getMinutes().toString().padStart(2, "0");
   return `${hours}:${minutes}`;
 
-  // return date.toLocaleString();
+}
+
+
+export function getUserDisplayName(user: User) {
+ return user.fullName
+              ? user.fullName
+              : `${user?.firstName} ${user?.lastName}`;
 }
