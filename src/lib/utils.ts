@@ -25,3 +25,16 @@ export function getRandomItem<T>(items: T[]): T {
   const index = Math.floor(Math.random() * items.length);
   return items[index];
 }
+
+export function formatTimestamp(timestamp: number | null): string {
+  if (!timestamp) {
+    return "";
+  }
+  const date = new Date(timestamp);
+
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  return `${hours}:${minutes}`;
+
+  // return date.toLocaleString();
+}

@@ -8,7 +8,7 @@ export const GET = async (request: NextRequest) => {
   const data = await db
     .select()
     .from(users)
-    .orderBy(desc(users.register))
+    .orderBy(desc(users.register), desc(users.updatedAt))
     .all();
 
   return NextResponse.json({ users: data });
