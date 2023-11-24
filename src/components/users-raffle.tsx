@@ -56,11 +56,16 @@ function UsersRaffle({ items, debug = false }: Props<User>) {
       setStart(false);
     }, 2000);
   };
+
+  const resetRaffle = () => {
+    setStart(false);
+    setWinner(null);
+    setIndex(null);
+  };
+
   if (!items) {
     return;
   }
-
-  console.log({ start, winner });
 
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-16">
@@ -78,10 +83,17 @@ function UsersRaffle({ items, debug = false }: Props<User>) {
           {debug && start && <p className="text-xs uppercase">{index}</p>}
         </>
       )}
-      <Button onClick={startRaffle} disabled={start}>
-        <PartyPopper className="mr-4" />
-        Iniciar
-      </Button>
+      <div className="flex gap-4">
+        <Button onClick={startRaffle} disabled={start}>
+          <PartyPopper className="mr-4" />
+          Iniciar
+        </Button>
+        {winner && (
+          <Button onClick={resetRaffle} disabled={start}>
+            Resetear
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
