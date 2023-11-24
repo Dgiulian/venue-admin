@@ -26,9 +26,9 @@ const QRDialog = ({ open, value, setOpen }: Props) => {
             <span className="mt-8 flex items-center justify-center">
               <QrCode value={value} />
             </span>
-            <p className="mt-6 text-center text-2xl font-bold text-white">
+            <span className="mt-6 block text-center text-2xl font-bold text-white">
               {value}
-            </p>
+            </span>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
