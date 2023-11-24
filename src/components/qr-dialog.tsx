@@ -5,7 +5,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import QrCode from "react-qr-code";
 
@@ -22,11 +21,11 @@ const QRDialog = ({ open, value, setOpen }: Props) => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>C&oacute;digo QR </DialogTitle>
-          <DialogDescription>
-            <span className="mt-8 flex items-center justify-center">
+          <DialogDescription className="bg-white ">
+            <span className="mt-8 flex items-center justify-center p-10">
               <QrCode value={value} />
             </span>
-            <span className="mt-6 block text-center text-2xl font-bold text-white">
+            <span className="text- mt-6 block text-center text-2xl font-bold">
               {value}
             </span>
           </DialogDescription>
