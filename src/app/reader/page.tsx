@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import WelcomeMessage from "@/components/WelcomeMessage";
-import { QrDialog } from "@/components/qr-dialog";
+import { QRReaderDialog } from "@/components/qr-reader-dialog";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Form,
@@ -122,11 +122,10 @@ export default function RegisterPage() {
       <Link href="/" className={buttonVariants({ variant: "outline" })}>
         Volver
       </Link>
-      <QrDialog
+      <QRReaderDialog
         open={open}
         setOpen={() => setOpen(!open)}
         onRead={(data) => {
-          console.log(data);
           form.setValue("email", data);
           setOpen(false);
         }}

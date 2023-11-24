@@ -1,69 +1,39 @@
-"use client";
-import { ViewFinder } from "@/components/ViewFinder";
+import React from "react";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
-import { QrReader } from "react-qr-reader";
+import QrCode from "react-qr-code";
 
-export type IAppProps = {
+type Props = {
   open: boolean;
-  setOpen: (open: boolean) => void;
-  onRead: (data: string) => void;
+  value: string;
+  setOpen: () => void;
 };
 
-export function QrDialog({ open, setOpen, onRead }: IAppProps) {
-  // useEffect(() => {
-  //   return () => {
-  //     let stream: MediaStream | null = null;
-
-  //     // Request the user's camera
-  //     navigator.mediaDevices
-  //       .getUserMedia({ video: true })
-  //       .then((mediaStream: MediaStream) => {
-  //         stream = mediaStream;
-  //         // Use the stream...
-  //       })
-  //       .catch((error: any) => {
-  //         console.error("Error accessing media devices.", error);
-  //       });
-
-  //     // Later, when you're done with the stream...
-  //     closeMediaDevices(stream);
-  //   };
-  // }, []);
-
+const QRDialog = ({ open, value, setOpen }: Props) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      {/* <DialogTrigger>QR</DialogTrigger> */}
-      <DialogContent className="px-0">
+      {/* <DialogTrigger>Open</DialogTrigger> */}
+      <DialogContent>
         <DialogHeader>
-          <DialogTitle>Escanee el codigo QR</DialogTitle>
+          <DialogTitle>C&oacute;digo QR </DialogTitle>
+          <DialogDescription>
+            <span className="mt-8 flex items-center justify-center">
+              <QrCode value={value} />
+            </span>
+            <p className="mt-6 text-center text-2xl font-bold text-white">
+              {value}
+            </p>
+          </DialogDescription>
         </DialogHeader>
-        <div className="flex items-center justify-center">
-          {open && (
-            <QrReader
-              onResult={(result, error) => {
-                if (result) {
-                  onRead(result?.getText());
-                }
-
-                if (error) {
-                  console.info(error);
-                }
-              }}
-              ViewFinder={ViewFinder}
-              constraints={{
-                facingMode: "environment",
-              }}
-              videoContainerStyle={{ width: 400, height: 400 }}
-              videoStyle={{ width: "100%" }}
-            />
-          )}
-        </div>
       </DialogContent>
     </Dialog>
   );
-}
+};
+
+export default QRDialog;

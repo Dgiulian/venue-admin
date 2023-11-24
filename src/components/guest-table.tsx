@@ -9,13 +9,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { User } from "@/lib/types";
-import { Check, X } from "lucide-react";
+import { Check, QrCode, X } from "lucide-react";
+import { QRReaderDialog } from "./qr-reader-dialog";
+import QRDialog from "./qr-dialog";
+import { useState } from "react";
+import { Button } from "./ui/button";
 
 type GuestTableProps = {
   users: User[];
 };
 
 export function GuestTable({ users }: GuestTableProps) {
+  const [selectedUser, setSelectedUser] = useState("");
   return (
     <Table>
       <TableCaption>Lista de invitados</TableCaption>
@@ -24,7 +29,8 @@ export function GuestTable({ users }: GuestTableProps) {
           <TableHead className="w-auto">Nombre</TableHead>
           <TableHead>Mesa</TableHead>
           <TableHead className="hidden md:block">Email</TableHead>
-          <TableHead className="w-6">Registrado</TableHead>
+          <TableHead className="w-12">Registrado</TableHead>
+          <TableHead className="w-12">QR</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -40,6 +46,15 @@ export function GuestTable({ users }: GuestTableProps) {
                 <X className=" text-red-400" />
               )}
             </TableCell>
+            <TableCell>
+              <Button
+                variant="default"
+                size="icon"
+                onClick={() => setSelectedUser(user.email)}
+              >
+                <QrCode />
+              </Button>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -49,6 +64,14 @@ export function GuestTable({ users }: GuestTableProps) {
           <TableCell className="text-right">{}</TableCell>
         </TableRow>
       </TableFooter>
+      <QRDialog
+        open={!!selectedUser}
+        value={selectedUser}
+        setOpen={() => {
+          console.log("Puto el que lee");
+          setSelectedUser("");
+        }}
+      />
     </Table>
   );
 }
