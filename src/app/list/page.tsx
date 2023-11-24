@@ -2,25 +2,25 @@ import { GuestTable } from "@/components/guest-table";
 import * as React from "react";
 
 import { getUsers } from "@/lib/turso";
+import Sorteo from "./sorteo";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 
-export type IGuestListPageProps = {};
-
-export default async function GuestListPage(props: IGuestListPageProps) {
+export default async function GuestListPage() {
   const users = await getUsers();
-  // React.useMemo<User[]>(
-  //   () =>
-  //     userData.map((user) => ({
-  //       ...user,
-  //       register: Math.random() > 0.5 ? 0 : 1,
-  //       createdAt: Date.now(),
-  //       updatedAt: Date.now(),
-  //     })),
-  //   [],
-  // );
 
   return (
     <div className="mx-auto max-w-4xl">
-      <GuestTable users={users} />
+      <div className="mt-6 flex gap-4">
+        <Link href="/" className={buttonVariants({ variant: "default" })}>
+          Volver
+        </Link>
+
+        <Sorteo users={users} />
+      </div>
+      <div className="mt-6">
+        <GuestTable users={users} />
+      </div>
     </div>
   );
 }

@@ -19,3 +19,9 @@ export function closeMediaDevices(stream: MediaStream | null): void {
 
   console.log("Media devices closed");
 }
+
+// Get a random item from an array
+export function getRandomItem<T>(items: T[]): T {
+  const index = Math.floor(Math.random() * items.length);
+  return items[index];
+}

@@ -4,22 +4,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+import WelcomeMessage from "@/components/WelcomeMessage";
 import { QrDialog } from "@/components/qr-dialog";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import Link from "next/link";
 import { User } from "@/lib/types";
-import WelcomeMessage from "@/components/WelcomeMessage";
-import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { useState } from "react";
 
 const FormSchema = z.object({
   email: z.string().trim().email({
