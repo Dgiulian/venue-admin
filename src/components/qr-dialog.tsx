@@ -1,14 +1,11 @@
 "use client";
 import { ViewFinder } from "@/components/ViewFinder";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { closeMediaDevices } from "@/lib/utils";
-import { useEffect } from "react";
 import { QrReader } from "react-qr-reader";
 
 export type IAppProps = {
@@ -65,9 +62,6 @@ export function QrDialog({ open, setOpen, onRead }: IAppProps) {
               videoStyle={{ width: "100%" }}
             />
           )}
-          <Button onClick={() => onRead("scuerdall3@prnewswire.com")}>
-            Leer
-          </Button>
         </div>
       </DialogContent>
     </Dialog>

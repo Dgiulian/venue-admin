@@ -11,7 +11,7 @@ export default function Home() {
             href="/reader"
             className={buttonVariants({ variant: "outline" })}
           >
-            Leer QR
+            Ingresar Invitado
           </Link>
 
           <Link

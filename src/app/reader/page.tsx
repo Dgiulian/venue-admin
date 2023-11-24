@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { User } from "@/lib/types";
 import Link from "next/link";
 import { useState } from "react";
+import { QrCode } from "lucide-react";
 
 const FormSchema = z.object({
   email: z.string().trim().email({
@@ -108,7 +109,7 @@ export default function RegisterPage() {
                 )}
               />
               <Button className="" onClick={() => setOpen(true)}>
-                QR
+                <QrCode />
               </Button>
             </div>
             <Button className="" onClick={onClick}>
