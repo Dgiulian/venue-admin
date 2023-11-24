@@ -8,17 +8,23 @@ import { useEffect, useState } from "react";
 import { User } from "@/lib/types";
 
 export default function GuestListPage() {
-  // const users = await getUsers();
   const [users, setUsers] = useState<User[] | null>(null);
   useEffect(() => {
+    const abortar = new AbortController();
     function loadData() {
-      fetch("/users")
+      fetch("/users", {
+        method: "POST",
+        signal: abortar.signal,
+      })
         .then((res) => res.json())
         .then((resp) => {
           setUsers(resp.users);
         });
     }
     loadData();
+    return () => {
+      abortar.abort();
+    };
   }, []);
   return (
     <div className="mx-auto max-w-4xl">
