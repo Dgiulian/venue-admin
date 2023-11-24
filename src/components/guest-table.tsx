@@ -59,13 +59,15 @@ export function GuestTable({ users }: GuestTableProps) {
               )}
             </TableCell>
             <TableCell>
-              <Button
-                variant="default"
-                size="icon"
-                onClick={() => setSelectedUser(user.email)}
-              >
-                <QrCode />
-              </Button>
+              {
+                <Button
+                  variant="default"
+                  size="icon"
+                  onClick={() => setSelectedUser(user.fullName ?? "")}
+                >
+                  <QrCode />
+                </Button>
+              }
             </TableCell>
             <TableCell>{formatTimestamp(user.updatedAt)}</TableCell>
           </TableRow>
