@@ -14,7 +14,7 @@ type GuestsProps = {
 
 export function Guests({ users }: GuestsProps) {
   const [filter, setFilter] = React.useState("");
-  const [register, setRegister] = React.useState<string>("");
+  const [register, setRegister] = React.useState<string>("all");
   const filteredUsers = React.useMemo(() => {
     return users
       .filter(
@@ -24,7 +24,7 @@ export function Guests({ users }: GuestsProps) {
           user.lastName.includes(filter) ||
           user.email.includes(filter),
       )
-      .filter((user) => register === "" || user.register === +register);
+      .filter((user) => register === "all" || user.register === +register);
   }, [users, filter, register]);
 
   return (
@@ -41,7 +41,7 @@ export function Guests({ users }: GuestsProps) {
             value={register?.toString()}
             onValueChange={(e) => setRegister(e)}
           >
-            <ToggleGroupItem value="" aria-label="Todos">
+            <ToggleGroupItem value="all" aria-label="Todos">
               Todos
             </ToggleGroupItem>
             <ToggleGroupItem value="1" aria-label="Registrados">
