@@ -40,7 +40,15 @@ export function GuestTable({ users }: GuestTableProps) {
           <TableRow key={user.id}>
             <TableCell className="w-auto font-medium">{`${user.firstName} ${user.lastName}`}</TableCell>
             <TableCell>{user.mesa}</TableCell>
-            <TableCell className="hidden md:table-cell">{user.email}</TableCell>
+            <TableCell className="hidden md:table-cell">
+              <a
+                href={`/qr?email=${user.email}`}
+                className="hover:underline "
+                target="_blank"
+              >
+                {user.email}
+              </a>
+            </TableCell>
             <TableCell className="text-center">
               {user.register ? (
                 <Check className="text-green-500" />
