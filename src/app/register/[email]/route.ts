@@ -35,10 +35,15 @@ export const POST = async (
     return NextResponse.json({ user: null });
   }
 
+  if (data.register === 1) {
+    return NextResponse.json({ user: data });
+  }
+
   const updatedUser = await db
     .update(users)
     .set({
       register: 1,
+      updatedAt: Date.now(),
     })
     .where(eq(users.email, email))
     .returning()

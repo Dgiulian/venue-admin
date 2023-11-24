@@ -68,7 +68,6 @@ export function GuestTable({ users }: GuestTableProps) {
         open={!!selectedUser}
         value={selectedUser}
         setOpen={() => {
-          console.log("Puto el que lee");
           setSelectedUser("");
         }}
       />

@@ -42,7 +42,6 @@ export default function RegisterPage() {
       fetch(`register/${email}`, { method: "POST" })
         .then((res) => res.json())
         .then((data) => {
-          console.log({ data });
           setUser(data.user);
           `/viewer?nombre=Diego&mesa=12`;
         });
@@ -54,7 +53,6 @@ export default function RegisterPage() {
       fetch(`register/${email}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           setUser(data.user);
         });
     }
