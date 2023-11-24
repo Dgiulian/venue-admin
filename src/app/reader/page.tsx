@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { User } from "@/lib/types";
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { QrCode } from "lucide-react";
 import { getUserDisplayName } from "@/lib/utils";
 
@@ -38,6 +38,7 @@ export default function RegisterPage() {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     const nombre = form.getValues("nombre");
     if (nombre) {
+      console.log("Submit");
       fetch(`register`, {
         method: "POST",
         body: JSON.stringify({ nombre: nombre }),
@@ -45,7 +46,7 @@ export default function RegisterPage() {
         .then((res) => res.json())
         .then((data) => {
           setUser(data.user);
-          `/viewer?nombre=Diego&mesa=12`;
+          form.setValue("nombre", "");
         });
     }
   }
@@ -59,6 +60,16 @@ export default function RegisterPage() {
   //       });
   //   }
   // };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedSubmit = useCallback(
+    debounce(() => {
+      console.log("Pto");
+      form.handleSubmit(onSubmit)();
+    }, 500),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+
   if (user) {
     return (
       <div className="flex h-screen flex-col items-center justify-center ">
@@ -125,9 +136,22 @@ export default function RegisterPage() {
           console.log("On Read", data);
           setOpen(false);
           form.setValue("nombre", data);
-          form.handleSubmit(onSubmit)();
+          debouncedSubmit();
         }}
       />
     </div>
   );
+}
+
+function debounce<F extends (...args: any[]) => any>(func: F, waitFor: number) {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+  return (...args: Parameters<F>): void => {
+    console.log(timeoutId);
+    if (timeoutId !== null) {
+      console.log("Timeout cleared");
+      clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(() => func(...args), waitFor);
+  };
 }
