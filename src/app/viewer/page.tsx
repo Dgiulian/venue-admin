@@ -17,6 +17,7 @@ export default function ViewerPage({
     const fetchData = async () => {
       try {
         const response = await fetch("/users/ultimo", {
+          method: "POST",
           signal: abortController.signal,
         });
         if (response.ok) {
