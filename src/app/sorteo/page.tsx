@@ -1,11 +1,15 @@
+import UsersRaffle from "@/components/users-raffle";
+import { getUsers } from "@/lib/turso";
 import * as React from "react";
 
 export type ISorteoPageProps = {};
 
-export default function SorteoPage(props: ISorteoPageProps) {
+export default async function SorteoPage(props: ISorteoPageProps) {
+  const users = await getUsers();
+
   return (
     <div>
-      <h1>Sorteo</h1>
+      <UsersRaffle items={users} debug={true} />
     </div>
   );
 }

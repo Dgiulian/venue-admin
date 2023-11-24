@@ -6,6 +6,7 @@ import Link from "next/link";
 import Sorteo from "./sorteo";
 import { useEffect, useState } from "react";
 import { User } from "@/lib/types";
+import { PartyPopper } from "lucide-react";
 
 export default function GuestListPage() {
   const [users, setUsers] = useState<User[] | null>(null);
@@ -33,7 +34,16 @@ export default function GuestListPage() {
           Volver
         </Link>
 
-        {users && <Sorteo users={users} />}
+        {/* {users && <Sorteo users={users} />} */}
+        {users && (
+          <Link
+            href="/sorteo"
+            className={buttonVariants({ variant: "default" })}
+          >
+            <PartyPopper className="mr-4" />
+            Sorteo
+          </Link>
+        )}
       </div>
 
       <div className="mt-6">

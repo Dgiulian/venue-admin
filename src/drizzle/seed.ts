@@ -25,7 +25,17 @@ const db = drizzle(client, { schema });
 async function seed() {
   const storedUsers: any = await db
     .insert(schema.users)
-    .values(usersData)
+    .values(
+      usersData.map((user) => ({
+        id: user.id,
+        first_name: user.firstName,
+        last_name: user.lastName,
+        fullName: `${user.firstName} ${user.lastName}`,
+        email: user.email,
+        createdAt: getRandomTimestamp(),
+        updatedAt: getRandomTimestamp(),
+      })),
+    )
     .returning()
     .all();
 
@@ -35,3 +45,10 @@ async function seed() {
 }
 
 seed();
+
+function getRandomTimestamp(): number {
+  const now = new Date().getTime();
+  const randomOffset = (Math.random() - 0.5) * 25 * 60 * 1000; // Random offset within +/- 25 minutes in milliseconds
+  const randomTimestamp = now + randomOffset;
+  return randomTimestamp;
+}

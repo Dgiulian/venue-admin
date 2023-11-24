@@ -23,8 +23,13 @@ export function closeMediaDevices(stream: MediaStream | null): void {
 
 // Get a random item from an array
 export function getRandomItem<T>(items: T[]): T {
-  const index = Math.floor(Math.random() * items.length);
+  const index = getRandomInt(0, items.length - 1);
   return items[index];
+}
+
+// Get a random integer between min and max
+export function getRandomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 export function formatTimestamp(timestamp: number | null): string {
@@ -36,12 +41,8 @@ export function formatTimestamp(timestamp: number | null): string {
   const hours = date.getHours().toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
   return `${hours}:${minutes}`;
-
 }
 
-
 export function getUserDisplayName(user: User) {
- return user.fullName
-              ? user.fullName
-              : `${user?.firstName} ${user?.lastName}`;
+  return user.fullName ? user.fullName : `${user?.firstName} ${user?.lastName}`;
 }
