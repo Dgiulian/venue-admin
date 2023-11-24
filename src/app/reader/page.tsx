@@ -4,7 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { Button } from "@/components/ui/button";
+import { QrDialog } from "@/components/qr-dialog";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -12,13 +13,13 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { QrDialog } from "./qr-dialog";
-import { DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
-// import { toast } from "@/components/ui/use-toast"
+import Link from "next/link";
+import { User } from "@/lib/types";
+import WelcomeMessage from "@/components/WelcomeMessage";
+import { cn } from "@/lib/utils";
 
 const FormSchema = z.object({
   email: z.string().trim().email({
@@ -28,6 +29,7 @@ const FormSchema = z.object({
 
 export default function RegisterPage() {
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -41,7 +43,9 @@ export default function RegisterPage() {
       fetch(`register/${email}`, { method: "POST" })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          console.log({ data });
+          setUser(data.user);
+          `/viewer?nombre=Diego&mesa=12`;
         });
     }
   }
@@ -52,9 +56,36 @@ export default function RegisterPage() {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
+          setUser(data.user);
         });
     }
   };
+  if (user) {
+    return (
+      <div className="flex h-screen flex-col items-center justify-center ">
+        <WelcomeMessage
+          nombre={`${user.firstName} ${user.lastName}`}
+          mesa={user.mesa.toString()}
+        />
+        <Button
+          variant="outline"
+          className="mt-10"
+          onClick={() => {
+            setUser(null);
+            form.setValue("email", "");
+          }}
+        >
+          Volver
+        </Button>
+        {/* <Link
+          href="/reader"
+          className={cn(buttonVariants({ variant: "outline" }), "mt-10")}
+        >
+          Volver
+        </Link> */}
+      </div>
+    );
+  }
 
   return (
     <div className=" flex flex-col items-center justify-center">
@@ -64,24 +95,30 @@ export default function RegisterPage() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="mt-11 w-full  md:max-w-md"
         >
-          <div className="flex flex-col items-start gap-2 p-4 md:flex-row md:items-center">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="email" {...field} />
-                  </FormControl>
-                  <FormDescription>Email del invitado</FormDescription>
-                  {/* <FormMessage /> */}
-                </FormItem>
-              )}
-            />
-            <Button className="" onClick={() => setOpen(true)}>
-              QR
-            </Button>
+          <div className="flex flex-col items-start gap-2 p-4 md:flex-row md:items-end">
+            <div className="flex w-full flex-row items-end gap-2 ">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="flex-1"
+                        placeholder="email"
+                        {...field}
+                      />
+                    </FormControl>
+                    {/* <FormDescription>Email del invitado</FormDescription> */}
+                    {/* <FormMessage /> */}
+                  </FormItem>
+                )}
+              />
+              <Button className="" onClick={() => setOpen(true)}>
+                QR
+              </Button>
+            </div>
             <Button className="" onClick={onClick}>
               Ingresar
             </Button>
@@ -89,7 +126,9 @@ export default function RegisterPage() {
           {/* <Button type="submit">Registrar</Button> */}
         </form>
       </Form>
-
+      <Link href="/" className={buttonVariants({ variant: "outline" })}>
+        Volver
+      </Link>
       <QrDialog
         open={open}
         setOpen={() => setOpen(!open)}

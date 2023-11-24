@@ -13,17 +13,26 @@ export default function Home() {
           >
             Leer QR
           </Link>
-          <Link
-            href="/register"
+          {/* <Link
+            href="/list"
             className={buttonVariants({ variant: "outline" })}
           >
             Registrar invitado
-          </Link>
+          </Link> */}
           <Link
             href="/viewer"
             className={buttonVariants({ variant: "outline" })}
           >
             Mostrar ubicaci&uacute;n
+          </Link>
+          <Link
+            href="/sorteo"
+            className={buttonVariants({ variant: "outline" })}
+          >
+            Realizar Sorteo
+          </Link>
+          <Link href="/list" className={buttonVariants({ variant: "outline" })}>
+            Ver invitados
           </Link>
         </div>
 
