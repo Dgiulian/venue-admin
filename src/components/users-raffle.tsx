@@ -55,7 +55,7 @@ function UsersRaffle({ items, debug = false }: Props<User>) {
     setIndex(getRandomInt(0, items.length - 1));
     setTimeout(() => {
       setStart(false);
-    }, 2000);
+    }, 5000);
   };
 
   const resetRaffle = () => {
