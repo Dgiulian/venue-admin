@@ -4,7 +4,7 @@ import { z } from "zod";
 
 import { db } from "@/lib/turso";
 import { users } from "@/drizzle/schema";
-import { nanoid } from 'nanoid'
+import { nanoid } from "nanoid";
 
 export const revalidate = 60;
 
@@ -40,24 +40,6 @@ export const POST = async (
   if (data) {
     return NextResponse.json({ user: data });
   }
-
-  console.log(
-    await db
-      .insert(users)
-      .values({
-        id: nanoid(),
-        fullName: nombre,
-        firstName: null,
-        lastName: null,
-        email: null,
-        register: 1,
-        mesa: 0,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      })
-      .returning()
-      .toSQL(),
-  );
 
   const newUser = await db
     .insert(users)

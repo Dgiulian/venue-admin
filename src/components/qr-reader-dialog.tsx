@@ -6,7 +6,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { QrReader } from "react-qr-reader";
+// import { QrReader } from "react-qr-reader";
+import QrReader from "@wypratama/react-qr";
+import "@wypratama/react-qr/dist/style.css";
 
 export type IAppProps = {
   open: boolean;
@@ -45,21 +47,17 @@ export function QRReaderDialog({ open, setOpen, onRead }: IAppProps) {
         <div className="flex items-center justify-center">
           {open && (
             <QrReader
-              onResult={(result, error) => {
+              onResult={(result) => {
                 if (result) {
-                  onRead(result?.getText());
-                }
-
-                if (error) {
-                  console.info(error);
+                  onRead(result);
                 }
               }}
-              ViewFinder={ViewFinder}
-              constraints={{
-                facingMode: "environment",
-              }}
-              videoContainerStyle={{ width: 400, height: 400 }}
-              videoStyle={{ width: "100%" }}
+              // ViewFinder={ViewFinder}
+              // constraints={{
+              //   facingMode: "environment",
+              // }}
+              // videoContainerStyle={{ width: 400, height: 400 }}
+              // videoStyle={{ width: "100%" }}
             />
           )}
         </div>

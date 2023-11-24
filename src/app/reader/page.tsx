@@ -63,9 +63,7 @@ export default function RegisterPage() {
     return (
       <div className="flex h-screen flex-col items-center justify-center ">
         <WelcomeMessage
-          nombre={
-            getUserDisplayName(user)
-          }
+          nombre={getUserDisplayName(user)}
           mesa={user.mesa ? user.mesa.toString() : ""}
         />
         <Button
@@ -124,8 +122,10 @@ export default function RegisterPage() {
         open={open}
         setOpen={() => setOpen(!open)}
         onRead={(data) => {
-          form.setValue("nombre", data);
+          console.log("On Read", data);
           setOpen(false);
+          form.setValue("nombre", data);
+          form.handleSubmit(onSubmit)();
         }}
       />
     </div>
