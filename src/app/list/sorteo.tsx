@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { User } from "@/lib/types";
 import { getRandomItem } from "@/lib/utils";
+import { PartyPopper } from "lucide-react";
 import { useState } from "react";
 
 type Props = { users: User[] };
@@ -32,6 +33,7 @@ const Sorteo = ({ users }: Props) => {
   return (
     <div>
       <Button variant="outline" onClick={handleSorteo}>
+        <PartyPopper className="mr-2 h-4 w-4" />
         Sorteo
       </Button>
 
