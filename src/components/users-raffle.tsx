@@ -13,6 +13,9 @@ type Props<T> = {
   debug?: boolean;
 };
 
+const ANIMATION_SPEED = 100;
+const ANIMATION_DURATION = 6000;
+
 function UsersRaffle({ items, debug = false }: Props<User>) {
   const [index, setIndex] = useState<number | null>(null);
   const [winner, setWinner] = useState<User | null>(null);
@@ -44,7 +47,7 @@ function UsersRaffle({ items, debug = false }: Props<User>) {
       //   }
       //   return index + 1;
       // });
-    }, 200);
+    }, ANIMATION_SPEED);
     return () => window.clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [start, items]);
@@ -55,7 +58,7 @@ function UsersRaffle({ items, debug = false }: Props<User>) {
     setIndex(getRandomInt(0, items.length - 1));
     setTimeout(() => {
       setStart(false);
-    }, 5000);
+    }, ANIMATION_DURATION);
   };
 
   const resetRaffle = () => {
