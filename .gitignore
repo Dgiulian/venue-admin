@@ -34,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+scripts/qrs/*
+scripts/node_modules/
+scripts/invitados.csv

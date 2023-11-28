@@ -50,22 +50,13 @@ export default function RegisterPage() {
         });
     }
   }
-  // const onClick = () => {
-  //   const nombre = form.getValues("nombre");
-  //   if (nombre) {
-  //     fetch(`register/${nombre}`)
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         setUser(data.user);
-  //       });
-  //   }
-  // };
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSubmit = useCallback(
     debounce(() => {
       console.log("Pto");
       form.handleSubmit(onSubmit)();
-    }, 500),
+    }, 300),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
