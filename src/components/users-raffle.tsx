@@ -81,14 +81,20 @@ function UsersRaffle({ items, debug = false }: Props<User>) {
     <div className="flex h-screen flex-col items-center justify-center gap-16">
       {winner ? (
         <div>
-          <p className="mb-12 text-center  text-6xl uppercase">Ganador!!</p>
-          <p className="text-6xl uppercase">{winner.fullName}</p>
+          <p className="mb-12 text-center  text-2xl uppercase lg:text-6xl">
+            Ganador!!
+          </p>
+          <p className="text-center text-xl uppercase lg:text-6xl">
+            {winner.fullName}
+          </p>
           <Confetti width={width} height={height} />
         </div>
       ) : (
         <>
           {start && index !== null && (
-            <p className="text-6xl uppercase">{items[index].fullName}</p>
+            <p className="text-xl uppercase lg:text-6xl">
+              {items[index].fullName}
+            </p>
           )}
           {debug && start && <p className="text-xs uppercase">{index}</p>}
         </>

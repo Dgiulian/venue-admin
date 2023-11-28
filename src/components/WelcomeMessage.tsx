@@ -1,6 +1,6 @@
 import React from "react";
-import Image from "next/image";
 import imageUrl from "./fondo.jpeg";
+import BackgroundImage from "./background-image";
 
 type Props = {
   nombre: string;
@@ -9,22 +9,13 @@ type Props = {
 
 function WelcomeMessage({ nombre, mesa }: Props) {
   return (
-    <div className="w-full max-w-5xl flex-col items-center justify-between space-y-16 font-mono text-sm md:space-y-28 lg:flex">
-      <div className="flex flex-col items-center justify-center space-y-9">
-        <Image
-          src={imageUrl}
-          alt="Background Image"
-          layout="fill"
-          objectFit="cover"
-          className="absolute"
-          priority
-          quality={100}
-        />
-        {/* <p className="z-2 text-4xl uppercase md:text-7xl ">Bienvenido</p> */}
-        <p className="relative text-3xl font-bold uppercase md:text-6xl">
-          {nombre}
-        </p>
-      </div>
+    <div className="relative space-y-16 font-mono text-sm md:space-y-28 ">
+      <BackgroundImage imageUrl={imageUrl} />
+
+      {/* <p className="z-2 text-4xl uppercase md:text-7xl ">Bienvenido</p> */}
+      <p className="relative top-[-25px] text-3xl font-bold uppercase md:text-6xl">
+        {nombre}
+      </p>
 
       {mesa && (
         <div className="flex flex-col items-center justify-center space-y-9">
