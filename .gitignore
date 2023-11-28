@@ -38,4 +38,5 @@ next-env.d.ts
 
 scripts/qrs/*
 scripts/node_modules/
-scripts/invitados.csv
+scripts/*.csv
+scripts/qrs-*.zip
