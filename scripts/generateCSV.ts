@@ -20,7 +20,7 @@ const readCSVAndGenerateQR = async (filePath: string) => {
           const fileName = `qr-${index
             .toString()
             .padStart(3, "0")}-${name.toLowerCase()}.png`;
-          await QRCode.toFile(`./qrs/${fileName}`, qrString, {
+          await QRCode.toFile(`./scripts/qrs/${fileName}`, qrString, {
             width: 500,
           });
           console.log(`QR Code saved as ${fileName}`);
@@ -34,4 +34,4 @@ const readCSVAndGenerateQR = async (filePath: string) => {
     });
 };
 
-readCSVAndGenerateQR("./invitados.csv");
+readCSVAndGenerateQR("./scripts/invitados.csv");

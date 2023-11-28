@@ -12,7 +12,8 @@
     "studio": "drizzle-kit studio --config src/drizzle.config.ts --port 3333 --verbose",
     "db:seed": "tsx src/drizzle/seed.ts",
     "db:local": "turso dev --db-file venue-admin.db",
-    "db:shell": "turso db shell http://127.0.0.1:8080"
+    "db:shell": "turso db shell http://127.0.0.1:8080",
+    "script:qr": "tsx scripts/generateCSV.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
@@ -55,6 +56,9 @@
     "prettier-plugin-tailwindcss": "^0.5.7",
     "tailwindcss": "^3.3.0",
     "tsx": "^4.4.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "csv-parser": "^3.0.0",
+    "qrcode": "^1.5.3",
+    "@types/qrcode": "^1.5.5"
   }
 }
