@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "./ui/button";
 import { User } from "@/lib/types";
 import { getRandomInt } from "@/lib/utils";
@@ -19,6 +19,7 @@ const ANIMATION_DURATION = 6000;
 function UsersRaffle({ items, debug = false }: Props<User>) {
   const [index, setIndex] = useState<number | null>(null);
   const [winner, setWinner] = useState<User | null>(null);
+  const previousWinners = useRef<number[]>([]);
   const [start, setStart] = useState(false);
   const { width, height } = useWindowSize();
 
@@ -26,6 +27,7 @@ function UsersRaffle({ items, debug = false }: Props<User>) {
     if (!start) {
       if (index !== null) {
         setWinner(items[index]);
+        previousWinners.current.push(index);
       }
 
       return;
@@ -35,18 +37,22 @@ function UsersRaffle({ items, debug = false }: Props<User>) {
         if (index !== null) {
           console.log(items[index]);
           setWinner(items[index]);
+          previousWinners.current.push(index);
         }
         clearInterval(interval);
         return;
       }
-      setIndex(getRandomInt(0, items.length - 1));
 
-      // setIndex((index) => {
-      //   if (index === items.length - 1) {
-      //     return 0;
-      //   }
-      //   return index + 1;
-      // });
+      let newIndex = getRandomInt(0, items.length - 1);
+
+      while (
+        previousWinners.current.length < items.length &&
+        previousWinners.current.includes(newIndex)
+      ) {
+        newIndex = getRandomInt(0, items.length - 1);
+      }
+
+      setIndex(newIndex);
     }, ANIMATION_SPEED);
     return () => window.clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
