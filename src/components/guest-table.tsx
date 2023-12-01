@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { User } from "@/lib/types";
-import { Check, QrCode, X } from "lucide-react";
+import { Check, Crosshair, QrCode, X } from "lucide-react";
 import { QRReaderDialog } from "./qr-reader-dialog";
 import QRDialog from "./qr-dialog";
 import { useState } from "react";
@@ -22,6 +22,28 @@ type GuestTableProps = {
 
 export function GuestTable({ users }: GuestTableProps) {
   const [selectedUser, setSelectedUser] = useState("");
+
+  const registerUser = (user: User) => {
+    fetch(`register/${user.id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        register: user.register ? 0 : 1,
+      }),
+    })
+      .then((res: Response) => {
+        if (res.status === 200) {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        // window.location.reload();
+      });
+  };
+
   return (
     <Table>
       <TableCaption>Lista de invitados</TableCaption>
@@ -69,13 +91,24 @@ export function GuestTable({ users }: GuestTableProps) {
                 </Button>
               }
             </TableCell>
+            <TableCell>
+              {
+                <Button
+                  variant="default"
+                  size="icon"
+                  onClick={() => registerUser(user)}
+                >
+                  <Crosshair />
+                </Button>
+              }
+            </TableCell>
             <TableCell>{formatTimestamp(user.updatedAt)}</TableCell>
           </TableRow>
         ))}
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={5}>Total</TableCell>
+          <TableCell colSpan={6}>Total</TableCell>
           <TableCell className="text-right">{users.length}</TableCell>
         </TableRow>
       </TableFooter>

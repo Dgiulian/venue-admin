@@ -60,7 +60,7 @@ export default function IngresoPage() {
   }
 
   return (
-    <div className="bg-brand flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center">
       <h1 className="mt-24 text-4xl">Bienvenido</h1>
       <Form {...form}>
         <form

@@ -2,7 +2,7 @@ import { drizzle } from "drizzle-orm/libsql";
 import { createClient } from "@libsql/client/http";
 import * as schema from "@/drizzle/schema";
 import { users } from "@/drizzle/schema";
-import { desc } from "drizzle-orm";
+import { desc, gt } from "drizzle-orm";
 
 interface Env {
   TURSO_DB_AUTH_TOKEN?: string;
@@ -28,6 +28,7 @@ export async function getUsers() {
   const data = await db
     .select()
     .from(users)
+    .where(gt(users.register, 0))
     .orderBy(desc(users.register))
     .all();
   return data;
