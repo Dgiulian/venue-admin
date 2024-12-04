@@ -2,7 +2,7 @@ import { drizzle } from "drizzle-orm/libsql";
 import { createClient } from "@libsql/client/http";
 import * as schema from "@/drizzle/schema";
 import { users } from "@/drizzle/schema";
-import { desc, gt } from "drizzle-orm";
+import { desc, eq, gt } from "drizzle-orm";
 
 interface Env {
   TURSO_DB_AUTH_TOKEN?: string;
@@ -31,5 +31,14 @@ export async function getUsers() {
     .where(gt(users.register, 0))
     .orderBy(desc(users.register))
     .all();
-  return data;
+  return data ?? [];
+}
+
+export async function markWinner(userId: string) {
+  const updatedUser = await db
+    .update(users)
+    .set({ register: 0 })
+    .where(eq(users.id, userId))
+    .returning();
+  return updatedUser;
 }

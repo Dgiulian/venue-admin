@@ -13,8 +13,24 @@ type Props<T> = {
   debug?: boolean;
 };
 
-const ANIMATION_SPEED = 100;
-const ANIMATION_DURATION = 6000;
+const ANIMATION_SPEED = 80;
+const ANIMATION_DURATION = 2000;
+
+function markWinner(user: User) {
+  fetch(`register/${user.id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      register: 0,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(`${user.fullName} marcado como ganador. Id: ${user.id}`);
+    });
+}
 
 function UsersRaffle({ items, debug = false }: Props<User>) {
   const [index, setIndex] = useState<number | null>(null);
@@ -23,11 +39,18 @@ function UsersRaffle({ items, debug = false }: Props<User>) {
   const [start, setStart] = useState(false);
   const { width, height } = useWindowSize();
 
+  // console.log(
+  //   `${items.length} invitados para el sorteo. ${previousWinners.current.length} ya ganadores`,
+  // );
+
   React.useEffect(() => {
     if (!start) {
       if (index !== null) {
-        setWinner(items[index]);
+        console.log(items[index]);
+        const newWinner = items[index];
+        setWinner(newWinner);
         previousWinners.current.push(index);
+        markWinner(newWinner);
       }
 
       return;
@@ -36,8 +59,10 @@ function UsersRaffle({ items, debug = false }: Props<User>) {
       if (!start) {
         if (index !== null) {
           console.log(items[index]);
-          setWinner(items[index]);
+          const newWinner = items[index];
+          setWinner(newWinner);
           previousWinners.current.push(index);
+          markWinner(newWinner);
         }
         clearInterval(interval);
         return;
